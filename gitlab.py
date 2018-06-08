@@ -16,7 +16,7 @@ def logged(f):
 
 # BEGIN gitlab.py
 import argparse
-from gitlab import config
+from gitlab import config,api
 
 """
 Logging level setup
@@ -24,6 +24,7 @@ Logging level setup
 logging.basicConfig(level=logging.INFO)
 # logging.getLogger('gitlab').setLevel(logging.DEBUG)
 # logging.getLogger('gitlab.config').setLevel(logging.DEBUG)
+logging.getLogger('gitlab.api').setLevel(logging.DEBUG)
 
 def parse_args():
     ap = argparse.ArgumentParser()
@@ -31,7 +32,12 @@ def parse_args():
 
 @logged
 def main(log,args):
-    url=config.get('server.url')
+    api.set_config(\
+            url=config.get('server.url'),
+            token=config.get('server.token')
+        )
+    me=api.user()
+    log.info(me.json())
 
 if __name__=='__main__':
     args = parse_args()
