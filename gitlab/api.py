@@ -47,10 +47,24 @@ def get_headers(log):
         log.debug('Private-Token:*****')
     return hdr
 
+"""
+Actual API calls
+"""
 @logged
-def user(log):
+def get_user(log):
     url=get_url('/user')
     hdr=get_headers()
     res=requests.get(url,headers=hdr)
-    return res
+    return res.status_code,res.reason,res.json()
+
+@logged
+def get_users(log,username=None):
+    url=get_url('/users')
+    hdr=get_headers()
+    pld=dict()
+    if username is not None:
+        pld['username']=username
+    # data=pld or params=pld
+    res=requests.get(url,headers=hdr,data=pld)
+    return res.status_code,res.reason,res.json()
 # END api.py

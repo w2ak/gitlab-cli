@@ -45,7 +45,7 @@ def check_cfg(log,filename,rights='r'):
     if os.access(filename,nr):
         log.info('{:}:{:}:OK'.format(filename,format_rights(nr)))
         return filename
-    log.warning('{:}:{:}:KO'.format(filename,format_rights(nr)))
+    log.info('{:}:{:}:KO'.format(filename,format_rights(nr)))
     return None
 
 """
