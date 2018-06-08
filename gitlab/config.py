@@ -102,7 +102,7 @@ def get_git_cfg(log):
     return None
 
 @logged
-def get(log,key=None):
+def get(log,key=None,secret=False):
     if __config is None:
         parse()
     if key is None:
@@ -110,7 +110,7 @@ def get(log,key=None):
     keys=key.split('.')
     val=__config.get(*keys,fallback=None)
     if val:
-        log.info('{:} => {:}'.format(key,val))
+        log.info('{:} => {:}'.format(key,'********' if secret else val))
         return val
     log.error('{:}:No such entry!'.format(key))
     return None

@@ -2,7 +2,7 @@
 # LOGGING HEADER
 import logging,sys,os
 logger=logging.getLogger(\
-        os.path.basename(sys.argv[0]) if __name__=='__main__'
+        'gitlab' if __name__=='__main__'
         else __name__)
 def logged(f):
     log=logger.getChild(f.__name__)
@@ -16,7 +16,7 @@ def logged(f):
 
 # BEGIN gitlab.py
 import argparse
-from gitlab import config,api
+from . import config,api
 
 """
 Logging level setup
@@ -34,7 +34,7 @@ def parse_args():
 def main(log,args):
     api.set_config(\
             url=config.get('server.url'),
-            token=config.get('server.token')
+            token=config.get('server.token',secret=True)
         )
     me=api.user()
     log.info(me.json())
