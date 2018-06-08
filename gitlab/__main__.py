@@ -1,7 +1,7 @@
 from . import logging,cli
 
 # BEGIN __main__.py
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 # logging.getLogger('gitlab').setLevel(logging.DEBUG)
 # logging.getLogger('gitlab.config').setLevel(logging.DEBUG)
 logging.getLogger('gitlab.api').setLevel(logging.DEBUG)
