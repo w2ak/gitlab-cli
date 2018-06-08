@@ -15,17 +15,7 @@ def logged(f):
     return g
 
 # BEGIN __init__.py
-import argparse
 from . import config,api
-
-def parse_args():
-    ap = argparse.ArgumentParser()
-    return ap.parse_args()
-
-@logged
-def main(log,args):
-    me=api.user()
-    log.info(me.json())
 
 @logged
 def init(log):
@@ -33,5 +23,4 @@ def init(log):
             url=config.get('server.url'),
             token=config.get('server.token',secret=True)
         )
-init()
 # END __init__.py

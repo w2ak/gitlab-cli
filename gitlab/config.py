@@ -16,7 +16,7 @@ def logged(f):
 # BEGIN config.py
 from io import StringIO
 from configparser import ConfigParser,ExtendedInterpolation
-from subprocess import run,PIPE
+from subprocess import run,PIPE,DEVNULL
 
 __config_filename = 'gitlab.ini'
 __config = None
@@ -54,7 +54,7 @@ Folder finding
 @logged
 def get_git_dir(log):
     ggd=['git','rev-parse','--git-dir']
-    out=run(ggd,stdout=PIPE)
+    out=run(ggd,stdout=PIPE,stderr=DEVNULL)
     if out.returncode == 0:
         path=out.stdout.decode('utf-8').strip()
         path=os.path.abspath(path)
@@ -125,8 +125,8 @@ def parse(log):
         if filename:
             log.info('{:}:READING'.format(filename))
             __config.read(filename)
-    s=StringIO('PARSED CONFIGURATION FILES\n')
-    s.seek(0,2)
-    __config.write(s)
-    log.debug(s.getvalue())
+    # s=StringIO('PARSED CONFIGURATION FILES\n')
+    # s.seek(0,2)
+    # __config.write(s)
+    # log.debug(s.getvalue())
 # END config.py
